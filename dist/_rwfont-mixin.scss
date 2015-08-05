@@ -1,0 +1,50 @@
+// Breakpoint Mixin
+// Reusable rule sets for using @media query
+// -----------------------------------------------------------------------------
+
+@mixin breakpoint($name) {
+  @if not map-has-key($grid-breakpoint, $name) {
+    @warn "Invalid breakpoint `#{$name}`.";
+  } @else {
+      @if map-get($grid-breakpoint, $name) == '' {
+        @content;
+      } @else {
+        @media screen and (min-width: map-get($grid-breakpoint, $name)) {
+        @content;
+      }
+    }
+  }
+}
+
+
+// RWFont Mixins
+// -----------------------------------------------------------------------------
+// get-font-map()
+// Get fonts setting from sassMap
+@mixin get-font-map($typo-font-size) {
+	@if type-of($typo-font-size) == "list" {
+		font-size: nth($typo-font-size, 1);
+		@if (length($typo-font-size) > 1) {
+			line-height: nth($typo-font-size, 2);
+		}
+	}
+	@else {
+		font-size: $typo-font-size;
+	}
+}
+
+
+// font-size()
+// Assigning font-size responsively
+@mixin font-size($typo-map, $typo-breakpoints : $grid-breakpoint) {
+	@each $typo-breakpoints, $typo-font-size in $typo-map {
+		@if $typo-breakpoints == null {
+			@include get-font-map($typo-font-size);
+		}
+		@else {
+			@include breakpoint($typo-breakpoints) {
+				@include get-font-map($typo-font-size);
+			}
+		}
+	}
+}

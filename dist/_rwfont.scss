@@ -1,0 +1,31 @@
+/**
+ * Project                            : RWFont-sassMap
+ * Description                        : Manage responsive font with SassMap and Mixins.
+ * Developers                         : Kao, Prakarangs.
+ * Email                              : kaowfang@ahomiya.com
+ * Special credit                     : https://jonsuh.com/blog/ - "The author of 
+ *                                      esponsive Typography with Sass Maps."    
+ */
+// -----------------------------------------------------------------------------
+
+// SassMap Example
+
+// Grid Setting
+$grid-breakpoint : (
+	medium    : 768px,
+	large     : 1024px,
+	xlarge    : 1280px
+);
+
+// Headline Font
+// $breakpoint : ($font-size, $line-height);
+$headline-size : (
+	null      : (16px, 18px),
+	medium    : (22px, 24px),
+	large     : (24px, 26px),
+	xlarge    : (26px, 28px)
+);
+
+
+// Usage
+h3 { @include font-size($headline-size); }
